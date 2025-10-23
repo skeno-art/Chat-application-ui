@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chat Application UI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   
+  <div id="auth-screen" class="auth-screen">
+    <h2>Login</h2>
+    <input type="text" placeholder="Username" id="username">
+    <input type="password" placeholder="Password">
+    <button onclick="enterChat()">Enter Chat</button>
+  </div>
+
+ 
+  <div id="chat-app" class="chat-app hidden">
+
+
+    <div class="sidebar">
+      <h3>Contacts</h3>
+      <ul class="contacts">
+        <li class="active">Alice</li>
+        <li>Bob</li>
+        <li>Charlie</li>
+      </ul>
+    </div>
+
+    <div class="chat-section">
+      <div class="chat-header">
+        <div class="chat-user-info">
+          <h3>Alice</h3>
+          <span class="status online">Online</span>
+        </div>
+      </div>
+
+ 
+      <div class="chat-messages" id="chat-messages">
+        <div class="message received">Hi there!</div>
+        <div class="message sent">Hello! How are you?</div>
+      </div>
+
+
+      <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type a message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+<script>
+  function enterChat() {
+  const username = document.getElementById("username").value;
+  if (username.trim() !== "") {
+    document.getElementById("auth-screen").classList.add("hidden");
+    document.getElementById("chat-app").classList.remove("hidden");
+  } else {
+    alert("Please enter your username.");
+  }
+}
+
+function sendMessage() {
+  const input = document.getElementById("messageInput");
+  const messageText = input.value.trim();
+  if (messageText === "") return;
+
+  const messageContainer = document.getElementById("chat-messages");
+
+
+  const newMessage = document.createElement("div");
+  newMessage.classList.add("message", "sent");
+  newMessage.textContent = messageText;
+  messageContainer.appendChild(newMessage);
+
+  input.value = "";
+  messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+</script>
+</html>
